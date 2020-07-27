@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    container_name: go-url-shortner-database
+    restart: always
+    build: ./sql_db
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    networks:
+      - base
+    logging:
+      driver: "none"
+    env_file: .env
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+  go-url-shortner-server:
+    container_name: go-url-shortner-server
+    build: ./src
+    command: sh ./start.sh
+    restart: always
+    env_file: .env
+    expose:
+      - "4000"
+    ports:
+      - "4000:4000"
+    networks:
+      - base
+    volumes:
+      - ./src/:/app
+
+networks:
+  base:
