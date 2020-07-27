@@ -1,4 +1,3 @@
-# TODO Maybe setup with the .env file
 use go_url_shortner;
 
 CREATE TABLE ShortUrl
